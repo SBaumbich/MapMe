@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="4sg-Vy-rPp">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--First-->
@@ -85,10 +86,146 @@
             </objects>
             <point key="canvasLocation" x="750" y="360"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="56m-N7-PDI">
+            <objects>
+                <navigationController id="Bta-NU-Wjy" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Zpl-t1-Gej">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="49e-Tb-3d3" kind="relationship" relationship="rootViewController" id="Wnb-Sa-SFe"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Y5a-mT-mPY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-723" y="0.0"/>
+        </scene>
+        <!--Log In View Controller-->
+        <scene sceneID="HaL-c0-m2t">
+            <objects>
+                <viewController id="4sg-Vy-rPp" customClass="LogInViewController" customModule="Map_Me" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="PWa-JY-1uh"/>
+                        <viewControllerLayoutGuide type="bottom" id="saY-mP-QWR"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rCM-Pj-DX9">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MapBackground" translatesAutoresizingMaskIntoConstraints="NO" id="Evy-yS-gDn">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Map Me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nDx-Dg-UsJ">
+                                <rect key="frame" x="190" y="0.0" width="220" height="116"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="220" id="VHB-P5-X99"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Zapfino" family="Zapfino" pointSize="34"/>
+                                <color key="textColor" red="0.70568970959595956" green="0.70568970959595956" blue="0.70568970959595956" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" red="0.91764705879999997" green="0.18039215689999999" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <size key="shadowOffset" width="0.0" height="1"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" alpha="0.84999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="User Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="glk-ZW-dXW">
+                                <rect key="frame" x="190" y="285" width="220" height="30"/>
+                                <color key="backgroundColor" red="0.70568970959999999" green="0.70568970959999999" blue="0.70568970959999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="220" id="OJB-F8-1IR"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" alpha="0.85000002384185791" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="73a-Xq-w1f">
+                                <rect key="frame" x="190" y="323" width="220" height="30"/>
+                                <color key="backgroundColor" red="0.70568970959999999" green="0.70568970959999999" blue="0.70568970959999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="220" id="QbP-Cs-vqG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" alpha="0.84999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dqi-md-KZm">
+                                <rect key="frame" x="190" y="361" width="220" height="60"/>
+                                <color key="backgroundColor" red="0.91764705879999997" green="0.18039215689999999" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="0pc-rE-fYk"/>
+                                    <constraint firstAttribute="width" constant="220" id="Img-u5-EaC"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Zapfino" family="Zapfino" pointSize="14"/>
+                                <state key="normal" title="Log In">
+                                    <color key="titleColor" red="0.70568970959999999" green="0.70568970959999999" blue="0.70568970959999999" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" alpha="0.84999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EA0-8n-1rD">
+                                <rect key="frame" x="190" y="429" width="106" height="30"/>
+                                <color key="backgroundColor" red="0.91764705879999997" green="0.18039215689999999" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Gcp-B8-Zhw"/>
+                                    <constraint firstAttribute="width" constant="106" id="xMN-oQ-0nw"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Zapfino" family="Zapfino" pointSize="10"/>
+                                <state key="normal" title="Register">
+                                    <color key="titleColor" red="0.70568970959999999" green="0.70568970959999999" blue="0.70568970959999999" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" alpha="0.85000002384185791" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xls-SO-SGV">
+                                <rect key="frame" x="304" y="429" width="106" height="30"/>
+                                <color key="backgroundColor" red="0.91764705879999997" green="0.18039215689999999" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="xhj-yY-TNZ"/>
+                                    <constraint firstAttribute="width" constant="106" id="zna-bZ-IFI"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Zapfino" family="Zapfino" pointSize="10"/>
+                                <state key="normal" title="Forgot Password">
+                                    <color key="titleColor" red="0.70568970959999999" green="0.70568970959999999" blue="0.70568970959999999" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="Xls-SO-SGV" firstAttribute="top" secondItem="Dqi-md-KZm" secondAttribute="bottom" constant="8" id="0rQ-jn-N2s"/>
+                            <constraint firstItem="saY-mP-QWR" firstAttribute="top" secondItem="nDx-Dg-UsJ" secondAttribute="bottom" constant="485" id="35L-Qf-HPU"/>
+                            <constraint firstItem="nDx-Dg-UsJ" firstAttribute="top" secondItem="Evy-yS-gDn" secondAttribute="top" id="B7m-mS-2Jl"/>
+                            <constraint firstItem="73a-Xq-w1f" firstAttribute="top" secondItem="glk-ZW-dXW" secondAttribute="bottom" constant="8" id="BPZ-cC-NKC"/>
+                            <constraint firstItem="73a-Xq-w1f" firstAttribute="centerX" secondItem="Evy-yS-gDn" secondAttribute="centerX" id="H2B-en-cr1"/>
+                            <constraint firstItem="Xls-SO-SGV" firstAttribute="centerX" secondItem="Evy-yS-gDn" secondAttribute="centerX" constant="57" id="Iky-Cd-1Z4"/>
+                            <constraint firstItem="Evy-yS-gDn" firstAttribute="top" secondItem="rCM-Pj-DX9" secondAttribute="topMargin" id="Jnj-gg-zmQ"/>
+                            <constraint firstItem="glk-ZW-dXW" firstAttribute="centerX" secondItem="Evy-yS-gDn" secondAttribute="centerX" id="OK5-SN-RNY"/>
+                            <constraint firstItem="Dqi-md-KZm" firstAttribute="top" secondItem="73a-Xq-w1f" secondAttribute="bottom" constant="8" id="Pfd-1i-g38"/>
+                            <constraint firstItem="EA0-8n-1rD" firstAttribute="top" secondItem="Dqi-md-KZm" secondAttribute="bottom" constant="8" id="ZOF-HI-kQX"/>
+                            <constraint firstItem="saY-mP-QWR" firstAttribute="top" secondItem="Evy-yS-gDn" secondAttribute="bottom" id="Zfl-xN-lbf"/>
+                            <constraint firstItem="EA0-8n-1rD" firstAttribute="centerX" secondItem="Evy-yS-gDn" secondAttribute="centerX" constant="-57" id="f6s-im-RfA"/>
+                            <constraint firstItem="glk-ZW-dXW" firstAttribute="centerY" secondItem="Evy-yS-gDn" secondAttribute="centerY" id="hm0-2h-uEW"/>
+                            <constraint firstItem="nDx-Dg-UsJ" firstAttribute="centerX" secondItem="Evy-yS-gDn" secondAttribute="centerX" id="iBl-BY-rdy"/>
+                            <constraint firstItem="Dqi-md-KZm" firstAttribute="centerX" secondItem="Evy-yS-gDn" secondAttribute="centerX" id="sfZ-9M-q96"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Evy-yS-gDn" secondAttribute="trailing" constant="-20" id="svN-mj-cDe"/>
+                            <constraint firstItem="Evy-yS-gDn" firstAttribute="leading" secondItem="rCM-Pj-DX9" secondAttribute="leadingMargin" constant="-20" id="yXG-09-8IY"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="35L-Qf-HPU"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="backgroundImage" destination="Evy-yS-gDn" id="cAo-tG-V1i"/>
+                        <outlet property="logInButton" destination="Dqi-md-KZm" id="Mxn-9d-Q7x"/>
+                        <outlet property="password" destination="73a-Xq-w1f" id="0Td-Ja-Wa6"/>
+                        <outlet property="titleLabel" destination="nDx-Dg-UsJ" id="LqE-Ns-uly"/>
+                        <outlet property="userName" destination="glk-ZW-dXW" id="Yrh-Tl-ERw"/>
+                        <segue destination="Bta-NU-Wjy" kind="show" id="Bcs-xI-RIV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SQV-pv-xqf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1435" y="0.0"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
                 <tabBarController id="49e-Tb-3d3" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="wFN-fB-w5i"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
@@ -106,6 +243,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="MapBackground" width="1007" height="1007"/>
         <image name="first" width="30" height="30"/>
         <image name="second" width="30" height="30"/>
     </resources>
