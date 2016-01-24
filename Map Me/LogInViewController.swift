@@ -16,44 +16,65 @@ class LogInViewController: UIViewController {
     @IBOutlet var userName: UITextField!
     @IBOutlet var password: UITextField!
     @IBOutlet var logInButton: UIButton!
+    @IBOutlet var registerButton: UIButton!
+    @IBOutlet var forgotPasswordButton: UIButton!
+    @IBOutlet var errorLabel: UILabel!
+    @IBOutlet var facebookView: UIView!
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
     
     
-// App Lifecycle
+//***************************************************
+// MARK: - App Life Cycle
+//***************************************************
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
     }
     
     override func viewWillAppear(animated: Bool) {
-        backgroundImage.alpha = 0
-        titleLabel.alpha = 0
-        userName.alpha = 0
-        password.alpha = 0
-        logInButton.alpha = 0
-        
+        setAlphaValues(0)
+        errorLabel.alpha = 0
         addTextfieldShadow(userName)
         addTextfieldShadow(password)
     }
     
     override func viewDidAppear(animated: Bool) {
         UIView.animateWithDuration(1.5) {
-            self.backgroundImage.alpha = 0.85
-            self.titleLabel.alpha = 0.85
-            self.userName.alpha = 0.85
-            self.password.alpha = 0.85
-            self.logInButton.alpha = 0.85
+            self.setAlphaValues(0.85)
         }
     }
     
+
+
+//***************************************************
+// MARK: - Helper Functions
+//***************************************************
     
+    // Hides the status bar for logingVC
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
     
-// Helper Functions
+    // Adds red shadown around textfields
     func addTextfieldShadow(textField: UITextField) {
         textField.layer.masksToBounds = false
         textField.layer.shadowColor = color.CGColor
         textField.layer.shadowOffset = CGSizeMake(1.0, 1.0)
         textField.layer.shadowOpacity = 0.70
         textField.layer.shadowRadius = 1.85
+    }
+    
+    // Set alpha values
+    func setAlphaValues(value: CGFloat) {
+        backgroundImage.alpha = value
+        titleLabel.alpha = value
+        userName.alpha = value
+        password.alpha = value
+        logInButton.alpha = value
+        registerButton.alpha = value
+        forgotPasswordButton.alpha = value
+        facebookView.alpha = value
     }
 }
