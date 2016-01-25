@@ -7,10 +7,14 @@
 //
 
 import UIKit
+import FBSDKLoginKit
+import FBSDKCoreKit
 
 class LogInViewController: UIViewController {
     
     let appDel = AppDelegate()
+    let networkRequest = NetworkRequest()
+    let defaults = NSUserDefaults.standardUserDefaults()
     @IBOutlet var backgroundImage: UIImageView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var userName: UITextField!
@@ -30,10 +34,11 @@ class LogInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
     }
     
     override func viewWillAppear(animated: Bool) {
+        _ = FBSDKLoginButton()
         setAlphaValues(0)
         errorLabel.alpha = 0
         addTextfieldShadow(userName)
@@ -44,6 +49,19 @@ class LogInViewController: UIViewController {
         UIView.animateWithDuration(1.5) {
             self.setAlphaValues(0.85)
         }
+        
+        if(FBSDKAccessToken.currentAccessToken() != nil) {
+            print("User logged into Facebook")
+            login()
+        } else {
+            print("User not logged Into FaceBook")
+        }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        UIView.animateWithDuration(0.5) {
+            self.setAlphaValues(0.0)
+        }
     }
     
 
@@ -53,11 +71,75 @@ class LogInViewController: UIViewController {
 //**************************************************
     
     @IBAction func logInButtonPressed(sender: AnyObject) {
-        login()
+        
+        
+        if textfieldsNotEmpty(userName.text!, password: password.text!) {
+            
+        let url = NSURL(string: "https://www.udacity.com/api/session")!
+        let header = ["Accept": "application/json", "Content-Type": "application/json"]
+        var body = [String:AnyObject]()
+        body["udacity"] = ["username": userName.text!, "password": password.text!]
+
+        networkRequest.downloadJSON(url, method: "POST", headers: header, body: body) { (data, error) -> Void in
+            
+            if let error = error {
+                self.errorLabel.text = "Network Request Error: \(error)"
+                UIView.animateWithDuration(0.5) {
+                    self.errorLabel.alpha = 0.85
+                    self.activityIndicator.stopAnimating()
+                }
+                return
+            }
+            
+            let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
+            
+            do {
+                if let udacityDict = try NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments) as? NSDictionary {
+                    
+                    if let loginStatus = udacityDict["status"] as? Int {
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.errorLabel.text = udacityDict["error"]! as? String
+                            self.activityIndicator.stopAnimating()
+                            UIView.animateWithDuration(0.5) {
+                                self.errorLabel.alpha = 0.85
+                            }
+                            print("loginStatus: \(loginStatus)")
+                        }
+                    } else {
+                        guard let userID = (udacityDict["account"]!["key"]) as? String else {
+                            print("Udacity User Key Not Found...")
+                            return
+                        }
+
+                        UIView.animateWithDuration(0.5) {
+                            self.activityIndicator.alpha = 0
+                        }
+                        
+                        dispatch_async(dispatch_get_main_queue()) {
+                            self.defaults.setObject(userID, forKey: "udacityUserID")
+                            self.defaults.setObject("Udacity", forKey: "login")
+                            self.login()
+                        }
+                    }
+                }
+            } catch {
+                print("Cound not parse data.")
+            }
+        }}
     }
 
-
-
+    @IBAction func Register(sender: AnyObject) {
+        if let url = NSURL(string: "https://www.udacity.com/account/auth#!/signup"){
+            UIApplication.sharedApplication().openURL(url)
+        }
+    }
+    
+    @IBAction func forgotPassword(sender: AnyObject) {
+        if let url = NSURL(string: "https://www.udacity.com/account/auth#!/request-password-reset"){
+            UIApplication.sharedApplication().openURL(url)
+        }
+    }
+    
 //***************************************************
 // MARK: - Helper Functions
 //***************************************************
@@ -88,8 +170,41 @@ class LogInViewController: UIViewController {
         facebookView.alpha = value
     }
     
-    // Login & Transition to the next view
+    // Login & transition to the next view
     private func login() {
         performSegueWithIdentifier("login", sender: self)
+    }
+    
+    // Check that User & Password textfields != ""
+    func textfieldsNotEmpty (username: String, password: String) -> Bool {
+    
+        var status: Bool = false
+        
+        if username == "" {
+            UIView.animateWithDuration(0.5) {
+                self.errorLabel.alpha = 0
+            }
+            errorLabel.text = "Username Empty"
+            UIView.animateWithDuration(0.5) {
+                self.errorLabel.alpha = 0.85
+            }
+        } else if password == "" {
+            UIView.animateWithDuration(0.5) {
+                self.errorLabel.alpha = 0
+            }
+            errorLabel.text = "Password Empty"
+            UIView.animateWithDuration(0.5) {
+                self.errorLabel.alpha = 0.85
+            }
+        } else {
+            
+            UIView.animateWithDuration(0.5) {
+                self.errorLabel.alpha = 0
+                self.activityIndicator.startAnimating()
+                self.activityIndicator.alpha = 1.0
+            }
+            status = true
+        }
+        return status
     }
 }
