@@ -10,7 +10,7 @@ import UIKit
 
 class LogInViewController: UIViewController {
     
-    let color = UIColor(red: 234.0/255.0, green: 46.0/255.0, blue: 73.0/255.0, alpha: 1.0)
+    let appDel = AppDelegate()
     @IBOutlet var backgroundImage: UIImageView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var userName: UITextField!
@@ -47,6 +47,16 @@ class LogInViewController: UIViewController {
     }
     
 
+    
+//**************************************************
+// MARK: - IBActions
+//**************************************************
+    
+    @IBAction func logInButtonPressed(sender: AnyObject) {
+        login()
+    }
+
+
 
 //***************************************************
 // MARK: - Helper Functions
@@ -60,7 +70,7 @@ class LogInViewController: UIViewController {
     // Adds red shadown around textfields
     func addTextfieldShadow(textField: UITextField) {
         textField.layer.masksToBounds = false
-        textField.layer.shadowColor = color.CGColor
+        textField.layer.shadowColor = appDel.color.CGColor
         textField.layer.shadowOffset = CGSizeMake(1.0, 1.0)
         textField.layer.shadowOpacity = 0.70
         textField.layer.shadowRadius = 1.85
@@ -76,5 +86,10 @@ class LogInViewController: UIViewController {
         registerButton.alpha = value
         forgotPasswordButton.alpha = value
         facebookView.alpha = value
+    }
+    
+    // Login & Transition to the next view
+    private func login() {
+        performSegueWithIdentifier("login", sender: self)
     }
 }

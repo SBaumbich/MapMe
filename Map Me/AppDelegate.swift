@@ -12,10 +12,22 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    let color = UIColor(red: 234.0/255.0, green: 46.0/255.0, blue: 73.0/255.0, alpha: 1.0)
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        UINavigationBar.appearance().titleTextAttributes = [
+            NSFontAttributeName: UIFont(name: "HelveticaNeue", size: 18)!,NSForegroundColorAttributeName : color
+        ]
+        UITabBar.appearance().tintColor = color
+        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: color ], forState: .Selected)
+        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.whiteColor()], forState: .Normal)
+        
+        
+        
+        //UIApplication.sharedApplication().statusBarStyle = .LightContent
+        
         return true
     }
 
