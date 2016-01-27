@@ -71,8 +71,7 @@ class LogInViewController: UIViewController {
 //**************************************************
     
     @IBAction func logInButtonPressed(sender: AnyObject) {
-        
-        
+
         if textfieldsNotEmpty(userName.text!, password: password.text!) {
             
         let url = NSURL(string: "https://www.udacity.com/api/session")!
@@ -83,7 +82,7 @@ class LogInViewController: UIViewController {
         networkRequest.downloadJSON(url, method: "POST", headers: header, body: body) { (data, error) -> Void in
             
             if let error = error {
-                self.errorLabel.text = "Network Request Error: \(error)"
+                self.errorLabel.text = "Network Request \(error)"
                 UIView.animateWithDuration(0.5) {
                     self.errorLabel.alpha = 0.85
                     self.activityIndicator.stopAnimating()
@@ -95,7 +94,8 @@ class LogInViewController: UIViewController {
             
             do {
                 if let udacityDict = try NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments) as? NSDictionary {
-                    
+
+
                     if let loginStatus = udacityDict["status"] as? Int {
                         dispatch_async(dispatch_get_main_queue()){
                             self.errorLabel.text = udacityDict["error"]! as? String
@@ -104,13 +104,14 @@ class LogInViewController: UIViewController {
                                 self.errorLabel.alpha = 0.85
                             }
                             print("loginStatus: \(loginStatus)")
+                            return
                         }
                     } else {
                         guard let userID = (udacityDict["account"]!["key"]) as? String else {
                             print("Udacity User Key Not Found...")
                             return
                         }
-
+                        print(userID)
                         UIView.animateWithDuration(0.5) {
                             self.activityIndicator.alpha = 0
                         }

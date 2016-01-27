@@ -11,10 +11,20 @@ import MapKit
 
 class MapVC: UIViewController {
 
+    let defaults = NSUserDefaults.standardUserDefaults()
+    var parseTest = PersistParseData()
     @IBOutlet var mapView: MKMapView!
     
     override func viewWillAppear(animated: Bool) {
         self.view.alpha = 0
+        
+        
+        parseTest.storeParseData { (data, error) -> Void in
+            if let data = (self.defaults.objectForKey("parseData")) as? [[String:AnyObject]] {
+
+                print(data)
+            }
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -25,14 +35,7 @@ class MapVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
 }
 
