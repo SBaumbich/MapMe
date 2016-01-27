@@ -10,8 +10,16 @@ import UIKit
 
 class ListVC: UITableViewController {
 
+    let appDel = AppDelegate()
+    let defaults = NSUserDefaults.standardUserDefaults()
+    var parseTest = PersistParseData()
+    var data: [[String:AnyObject]] = []
+    
     override func viewWillAppear(animated: Bool) {
         self.view.alpha = 0
+        if let storedData = (self.defaults.objectForKey("parseData")) as? [[String:AnyObject]] {
+            data = storedData
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -31,26 +39,46 @@ class ListVC: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 100
+        return data.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+        cell.textLabel?.textColor = UIColor.grayColor()
+        cell.detailTextLabel?.textColor = UIColor.grayColor()
         
-//        let contact = contactsArray[indexPath.row]
-//        cell.textLabel!.text = contact.name
-//        cell.imageView?.image = UIImage(data: contact.smallImageData!)
-//        
-//        // If the cell has a detail label, assign the phoneNumber.
-//        if let detailTextLabel = cell.detailTextLabel {
-//            if let workPhone = contact.phone!["work"] as? String {
-//                detailTextLabel.text = workPhone
-//            }
-//        }
+        let contact = data[indexPath.row]
+        let contactLocation = ClientLocation(ClientLocationDict: contact)
+        if let firstName = contactLocation.firstName , let lastName = contactLocation.lastName {
+            cell.textLabel?.text = "\(firstName) \(lastName)"
+        }
+        // If the cell has a detail label, we will put the evil scheme in.
+        if let detailTextLabel = cell.detailTextLabel {
+            detailTextLabel.text = contactLocation.mediaURL
+        }
+        cell.imageView?.tintColor = appDel.color
+        cell.imageView?.image = UIImage(named: "Pin")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+        
+        // If the cell has a detail label, assign the phoneNumber.
+        if let detailTextLabel = cell.detailTextLabel {
+            detailTextLabel.text = contactLocation.mediaURL
+        }
         return cell
     }
 
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        let app = UIApplication.sharedApplication()
+        let locInfo = data[indexPath.row]
+        let studentInfo = ClientLocation(ClientLocationDict: locInfo)
+        if let url = studentInfo.mediaURL {
+            if let link = NSURL(string: url) {
+                app.openURL(link)
+            }
+        }
+    }
 
     
     
