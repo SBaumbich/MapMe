@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import FBSDKCoreKit
+import FBSDKLoginKit
 
 class TabBarVC: UITabBarController {
 
-    let topVC = UIApplication.topViewController()
     let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
+    let defaults = NSUserDefaults.standardUserDefaults()
     let appDel = AppDelegate()
+
     
 
 //**************************************************
@@ -21,7 +24,14 @@ class TabBarVC: UITabBarController {
     
     @IBAction func logOutButton(sender: AnyObject) {
     
+        
         setActivityIndicator()
+        UIApplication.sharedApplication().beginIgnoringInteractionEvents()
+        
+        if defaults.objectForKey("login") as? String  == "Facebook" {
+            facebookLogout()
+        } else {
+        
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
         request.HTTPMethod = "DELETE"
         var xsrfCookie: NSHTTPCookie? = nil
@@ -40,6 +50,7 @@ class TabBarVC: UITabBarController {
             
             guard (error == nil) else {
                 self.activityIndicator.stopAnimating()
+                UIApplication.sharedApplication().endIgnoringInteractionEvents()
                 let alert = UIAlertController(title: "Logout Faild", message:"Unable to connect to the network.", preferredStyle: .Alert)
                 alert.addAction(UIAlertAction(title: "Retry", style: .Default) { _ in })
                 self.presentViewController(alert, animated: true, completion: nil)
@@ -57,6 +68,7 @@ class TabBarVC: UITabBarController {
                 } else {
                     print("Your request returned an invalid response!")
                 }
+                UIApplication.sharedApplication().endIgnoringInteractionEvents()
                 return
             }
             
@@ -64,10 +76,10 @@ class TabBarVC: UITabBarController {
                 /* subset response data! */
                 let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
                 
-                if let parsedData = try NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments) as? NSDictionary{
+                if let _ = try NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments) as? NSDictionary{
 
                     print("logged Out Udacity")
-                    print(parsedData)
+                    UIApplication.sharedApplication().endIgnoringInteractionEvents()
                     
                     dispatch_async(dispatch_get_main_queue()){
                         self.dismissViewControllerAnimated(true, completion: nil)
@@ -75,9 +87,11 @@ class TabBarVC: UITabBarController {
                 }
             } catch {
                 print("Problem Logging Out")
+                UIApplication.sharedApplication().endIgnoringInteractionEvents()
             }
         }
         task.resume()
+        }
     }
     
     @IBAction func addPinButton(sender: AnyObject) {
@@ -91,18 +105,49 @@ class TabBarVC: UITabBarController {
 //**************************************************
     
     func setActivityIndicator () {
+        let topVC = UIApplication.topViewController()
         activityIndicator.color = appDel.redColor
         activityIndicator.center = self.view.center
         activityIndicator.startAnimating()
         topVC!.view.addSubview(activityIndicator)
     }
     
+    func facebookLogout() {
+        let facebookRequest: FBSDKGraphRequest! = FBSDKGraphRequest(graphPath: "/me/permissions", parameters: nil, HTTPMethod: "DELETE")
+        
+        facebookRequest.startWithCompletionHandler { (connection: FBSDKGraphRequestConnection!, result: AnyObject!, error: NSError!) -> Void in
+            if(error == nil && result != nil){
+                print("Permission successfully revoked. This app will no longer post to Facebook on your behalf.")
+                print("result = \(result)")
+                
+                self.activityIndicator.stopAnimating()
+                UIApplication.sharedApplication().endIgnoringInteractionEvents()
+                
+                if result["success"] as? Int == 1 {
+                    
+                    self.activityIndicator.stopAnimating()
+                    UIApplication.sharedApplication().endIgnoringInteractionEvents()
+                    
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                }
+            } else if let error: NSError = error {
+                if let errorString = error.userInfo["error"] as? String {
+                    print("errorString variable equals: \(errorString)")
+                    self.activityIndicator.stopAnimating()
+                    UIApplication.sharedApplication().endIgnoringInteractionEvents()
+                } else {
+                    print("No value for error key")
+                    self.activityIndicator.stopAnimating()
+                    UIApplication.sharedApplication().endIgnoringInteractionEvents()
+                }
+            }
+        }
+    }
 }
 
 
-
 //**************************************************
-// MARK: - Extention (Find Top Most View Controller)
+// MARK: - Extention: (Find Top Most View Controller)
 //**************************************************
 
 extension UIApplication {

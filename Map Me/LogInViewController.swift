@@ -43,6 +43,14 @@ class LogInViewController: UIViewController {
         errorLabel.alpha = 0
         addTextfieldShadow(userName)
         addTextfieldShadow(password)
+        
+        if(FBSDKAccessToken.currentAccessToken() != nil) {
+            print("User logged into Facebook")
+            self.defaults.setObject("Facebook", forKey: "login")
+            login()
+        } else {
+            print("User not logged Into FaceBook")
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
