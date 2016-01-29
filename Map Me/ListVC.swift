@@ -15,6 +15,12 @@ class ListVC: UITableViewController {
     var parseTest = PersistParseData()
     var data: [[String:AnyObject]] = []
     
+   
+    
+//***************************************************
+// MARK: - App Life Cycle
+//***************************************************
+
     override func viewWillAppear(animated: Bool) {
         self.view.alpha = 0
         if let storedData = (self.defaults.objectForKey("parseData")) as? [[String:AnyObject]] {
@@ -33,7 +39,10 @@ class ListVC: UITableViewController {
     }
 
 
-    // MARK: - Table view data source
+//***************************************************
+// // MARK: - Table view data source
+//***************************************************
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -47,26 +56,29 @@ class ListVC: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
         cell.textLabel?.textColor = UIColor.grayColor()
         cell.detailTextLabel?.textColor = UIColor.grayColor()
+        cell.imageView?.tintColor = appDel.redColor
+        
+        // Set List Image
+        cell.imageView?.image = UIImage(named: "Pin")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
         
         let contact = data[indexPath.row]
         let contactLocation = ClientLocation(ClientLocationDict: contact)
         if let firstName = contactLocation.firstName , let lastName = contactLocation.lastName {
             cell.textLabel?.text = "\(firstName) \(lastName)"
         }
-        // If the cell has a detail label, we will put the evil scheme in.
-        if let detailTextLabel = cell.detailTextLabel {
-            detailTextLabel.text = contactLocation.mediaURL
-        }
-        cell.imageView?.tintColor = appDel.color
-        cell.imageView?.image = UIImage(named: "Pin")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
         
-        // If the cell has a detail label, assign the phoneNumber.
+        // If the cell has a detail label, assign the URL.
         if let detailTextLabel = cell.detailTextLabel {
             detailTextLabel.text = contactLocation.mediaURL
         }
         return cell
     }
+    
+    
 
+//***************************************************
+// // MARK: - Table view Delegate Methods
+//***************************************************
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
@@ -79,16 +91,11 @@ class ListVC: UITableViewController {
             }
         }
     }
-
-    
-    
-    // MARK: - Delegate Methods
-    let grayColor = UIColor(red: 180/255.0, green: 180/255.0, blue: 180/255.0, alpha: 1.0)
     
     //Display UITableView Header with specified font & color
     override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         
-        view.tintColor = grayColor
+        view.tintColor = appDel.grayColor
         if let header = view as? UITableViewHeaderFooterView {
             header.textLabel?.font = UIFont(name: "HelveticaNeue-Thin", size: 14.0)
             header.textLabel?.textColor = UIColor.whiteColor()
@@ -98,9 +105,9 @@ class ListVC: UITableViewController {
     // Highlight selected row with specified color on touch
     override func tableView(tableView: UITableView, didHighlightRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath)
-        cell?.contentView.backgroundColor = grayColor
+        cell?.contentView.backgroundColor = appDel.grayColor
         let highlightView = UIView()
-        highlightView.backgroundColor = grayColor
+        highlightView.backgroundColor = appDel.grayColor
         cell?.selectedBackgroundView = highlightView
     }
 

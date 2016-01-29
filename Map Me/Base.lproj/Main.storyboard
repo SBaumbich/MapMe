@@ -279,13 +279,19 @@
         <!--Map Me-->
         <scene sceneID="inO-HX-xXe">
             <objects>
-                <tabBarController id="SXt-8m-28R" sceneMemberID="viewController">
+                <tabBarController id="SXt-8m-28R" customClass="TabBarVC" customModule="Map_Me" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" title="Map Me" id="EpE-hs-3oS">
                         <barButtonItem key="leftBarButtonItem" title="Log Out" id="7jL-CK-atX">
                             <color key="tintColor" red="0.91764705879999997" green="0.18039215689999999" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="logOutButton:" destination="SXt-8m-28R" id="uXz-CV-jwF"/>
+                            </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="target" id="6zU-KR-LS8">
                             <color key="tintColor" red="0.91764705879999997" green="0.18039215689999999" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="addPinButton:" destination="SXt-8m-28R" id="iAq-1w-Bxt"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <tabBar key="tabBar" alpha="0.69999999999999996" contentMode="scaleToFill" translucent="NO" id="M5Z-5g-bts">

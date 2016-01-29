@@ -13,16 +13,16 @@ import FBSDKShareKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    let color = UIColor(red: 234.0/255.0, green: 46.0/255.0, blue: 73.0/255.0, alpha: 1.0)
-
+    let redColor = UIColor(red: 234/255.0, green: 46/255.0, blue: 73/255.0, alpha: 1.0)
+    let grayColor = UIColor(red: 180/255.0, green: 180/255.0, blue: 180/255.0, alpha: 1.0)
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         UINavigationBar.appearance().titleTextAttributes = [
-            NSFontAttributeName: UIFont(name: "HelveticaNeue", size: 18)!,NSForegroundColorAttributeName : color]
+            NSFontAttributeName: UIFont(name: "HelveticaNeue", size: 18)!,NSForegroundColorAttributeName : redColor]
         
-        UITabBar.appearance().tintColor = color
-        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: color ], forState: .Selected)
+        UITabBar.appearance().tintColor = redColor
+        UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: redColor ], forState: .Selected)
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.whiteColor()], forState: .Normal)
         
         return true

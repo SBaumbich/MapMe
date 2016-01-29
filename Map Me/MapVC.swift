@@ -16,6 +16,12 @@ class MapVC: UIViewController {
     var annotations = [MKPointAnnotation]()
     @IBOutlet var mapView: MKMapView!
     
+    
+    
+//***************************************************
+// MARK: - App Life Cycle
+//***************************************************
+    
     override func viewWillAppear(animated: Bool) {
         self.view.alpha = 0
         
@@ -31,26 +37,40 @@ class MapVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // GET Parse Data
         parseTest.storeParseData { (data, error) -> Void in
-            if let data = (self.defaults.objectForKey("parseData")) as? [[String:AnyObject]] {
-                
-                print(data)
-                var pointContainer = [MKPointAnnotation]()
-                for dict in data {
-                    let item = ClientLocation(ClientLocationDict: dict)
-                    pointContainer.append(item.annotation!)
-                    
-                }
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.annotations = pointContainer
-                    self.mapView.addAnnotations(self.annotations)
-                }
-            } else if error == true {
-                let alert = UIAlertController(title: "Download Faild", message:"Unable to download student pin locations", preferredStyle: .Alert)
-                alert.addAction(UIAlertAction(title: "Continue", style: .Default) { _ in })
-                self.presentViewController(alert, animated: true, completion: nil)
-            }
+            self.updateMapData()
         }
     }
+    
+    
+//***************************************************
+// MARK: - Helper Functions
+//***************************************************
+    
+    // Update Map Data & Pin Annotations
+    func updateMapData() {
+        if let data = (self.defaults.objectForKey("parseData")) as? [[String:AnyObject]] {
+            
+            print("Map Data & Pins Populated")
+            var pointContainer = [MKPointAnnotation]()
+            for dict in data {
+                let item = ClientLocation(ClientLocationDict: dict)
+                pointContainer.append(item.annotation!)
+                
+            }
+            // Update Map Pins
+            dispatch_async(dispatch_get_main_queue()) {
+                self.annotations = pointContainer
+                self.mapView.addAnnotations(self.annotations)
+            }
+        } else  {
+            let alert = UIAlertController(title: "Download Faild", message:"Unable to download student pin locations", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "Continue", style: .Default) { _ in })
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+    }
+    
+    
 }
 

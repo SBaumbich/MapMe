@@ -81,7 +81,7 @@ class LogInViewController: UIViewController {
 
         networkRequest.downloadJSON(url, method: "POST", headers: header, body: body) { (data, error) -> Void in
             
-            if let error = error {
+            guard (error == nil) else {
                 self.errorLabel.text = "Network Request \(error)"
                 UIView.animateWithDuration(0.5) {
                     self.errorLabel.alpha = 0.85
@@ -94,7 +94,6 @@ class LogInViewController: UIViewController {
             
             do {
                 if let udacityDict = try NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments) as? NSDictionary {
-
 
                     if let loginStatus = udacityDict["status"] as? Int {
                         dispatch_async(dispatch_get_main_queue()){
@@ -111,7 +110,8 @@ class LogInViewController: UIViewController {
                             print("Udacity User Key Not Found...")
                             return
                         }
-                        print(userID)
+                        
+                        print("Udacity ID: \(userID)")
                         UIView.animateWithDuration(0.5) {
                             self.activityIndicator.alpha = 0
                         }
@@ -126,7 +126,7 @@ class LogInViewController: UIViewController {
             } catch {
                 print("Cound not parse data.")
             }
-        }}
+        }}// If Check
     }
 
     @IBAction func Register(sender: AnyObject) {
@@ -153,7 +153,7 @@ class LogInViewController: UIViewController {
     // Adds red shadown around textfields
     func addTextfieldShadow(textField: UITextField) {
         textField.layer.masksToBounds = false
-        textField.layer.shadowColor = appDel.color.CGColor
+        textField.layer.shadowColor = appDel.redColor.CGColor
         textField.layer.shadowOffset = CGSizeMake(1.0, 1.0)
         textField.layer.shadowOpacity = 0.70
         textField.layer.shadowRadius = 1.85
