@@ -23,7 +23,6 @@ class TabBarVC: UITabBarController {
 //**************************************************
     
     @IBAction func logOutButton(sender: AnyObject) {
-    
         
         setActivityIndicator()
         UIApplication.sharedApplication().beginIgnoringInteractionEvents()
@@ -95,7 +94,9 @@ class TabBarVC: UITabBarController {
     }
     
     @IBAction func addPinButton(sender: AnyObject) {
-    
+        
+        let controller = storyboard?.instantiateViewControllerWithIdentifier("PostLocation") as? PostLocationVC
+        presentViewController(controller!, animated: true, completion: nil)
     }
     
     

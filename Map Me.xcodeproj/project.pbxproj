@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D15CE871C5BFE9000C53850 /* PostLocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D15CE861C5BFE9000C53850 /* PostLocationVC.swift */; };
 		0D2287D11C553155006C620C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D2287D01C553155006C620C /* Assets.xcassets */; };
 		0D8500C71C5527A7007528FE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8500C61C5527A7007528FE /* AppDelegate.swift */; };
 		0D8500C91C5527A7007528FE /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8500C81C5527A7007528FE /* MapVC.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0D15CE861C5BFE9000C53850 /* PostLocationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostLocationVC.swift; sourceTree = "<group>"; };
 		0D2287D01C553155006C620C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0D8500C31C5527A7007528FE /* Map Me.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Map Me.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D8500C61C5527A7007528FE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = "Map Me/AppDelegate.swift"; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				0DC02A721C5B00FC007C44C1 /* TabBarVC.swift */,
 				0D8500C81C5527A7007528FE /* MapVC.swift */,
 				0D9A93631C558D25007B6100 /* ListVC.swift */,
+				0D15CE861C5BFE9000C53850 /* PostLocationVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -205,6 +208,7 @@
 				0D98BB101C56F7420071ABB8 /* ClientLocation.swift in Sources */,
 				0D8500C91C5527A7007528FE /* MapVC.swift in Sources */,
 				0DC02A731C5B00FC007C44C1 /* TabBarVC.swift in Sources */,
+				0D15CE871C5BFE9000C53850 /* PostLocationVC.swift in Sources */,
 				0DC2F8F61C56985F00FDFDE0 /* NetworkRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
