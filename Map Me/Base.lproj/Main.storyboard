@@ -312,7 +312,7 @@
                                                 <color key="textColor" red="0.91764705879999997" green="0.18039215689999999" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City, State" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gFs-t6-KFn">
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City, State" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gFs-t6-KFn">
                                                 <rect key="frame" x="0.0" y="70" width="600" height="30"/>
                                                 <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -333,7 +333,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="400"/>
                                             </mapView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Fo-4V-zqe">
-                                                <rect key="frame" x="0.0" y="400" width="600" height="21"/>
+                                                <rect key="frame" x="0.0" y="400" width="600" height="20"/>
                                                 <color key="backgroundColor" red="0.6705882353" green="0.6705882353" blue="0.6705882353" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                                                 <color key="textColor" red="0.91764705879999997" green="0.18039215689999999" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -350,7 +350,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="L2v-jb-nJ7">
                                         <rect key="frame" x="0.0" y="520" width="600" height="80"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pvn-YO-N15">
+                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pvn-YO-N15">
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="80"/>
                                                 <color key="backgroundColor" red="0.91764705879999997" green="0.18039215689999999" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="24"/>
@@ -368,6 +368,9 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="gDU-Ao-jZw">
+                                <rect key="frame" x="0.0" y="282" width="600" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -378,8 +381,9 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="InputTextField" destination="gFs-t6-KFn" id="1bx-IE-m1l"/>
+                        <outlet property="activityIndicator" destination="gDU-Ao-jZw" id="rKQ-oI-Wbl"/>
                         <outlet property="detailsLabel" destination="9Fo-4V-zqe" id="OPC-WG-hZ9"/>
+                        <outlet property="inputTextField" destination="gFs-t6-KFn" id="M8b-P6-Ioh"/>
                         <outlet property="mapView" destination="04w-fF-oQ1" id="ovS-2Q-tRv"/>
                         <outlet property="titleLabel" destination="XH4-Jt-Dxg" id="nOi-7f-g6w"/>
                     </connections>
