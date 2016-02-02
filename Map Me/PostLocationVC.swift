@@ -17,6 +17,8 @@ class PostLocationVC: UIViewController {
     @IBOutlet var mapView: MKMapView!
     @IBOutlet var detailsLabel: UILabel!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
+    let defaults = NSUserDefaults.standardUserDefaults()
+    var mapString = ""
     
     
     
@@ -47,15 +49,25 @@ class PostLocationVC: UIViewController {
                 } else {
                     
                     self.activityIndicator.stopAnimating()
+                    self.mapString = self.inputTextField.text!
                     self.button.setTitle("Post", forState: .Normal)
                     self.titleLabel.text = "Enter a valid URL"
                     self.inputTextField.placeholder = "https://www.google.com"
                     self.inputTextField.text = ""
-                    
+                    let placemark = results![0]
+                    self.mapView.showAnnotations([MKPlacemark(placemark: placemark)], animated: true)
                     print(results)
                 }
             }
-        }}else if button.currentTitle == "Post" {  print("Post Button")  }
+        }}else if button.currentTitle == "Post" {
+            let loginMethod = (defaults.objectForKey("login") as? String)!
+
+            if loginMethod == "Facebook" {
+                print("Facebook")
+            } else if loginMethod == "Udacity" {
+                print("Udacity")
+            }
+        }
     }
 }
 

@@ -19,6 +19,7 @@
 		0D9A936D1C566FDB007B6100 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D9A936A1C566FDB007B6100 /* FBSDKLoginKit.framework */; };
 		0D9A936E1C566FDB007B6100 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D9A936B1C566FDB007B6100 /* FBSDKShareKit.framework */; };
 		0DACEF5D1C57F228001A8CC2 /* PersistParseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DACEF5C1C57F228001A8CC2 /* PersistParseData.swift */; };
+		0DB0DD4B1C6111A2004357F6 /* GetUserCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB0DD4A1C6111A2004357F6 /* GetUserCredentials.swift */; };
 		0DC02A731C5B00FC007C44C1 /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC02A721C5B00FC007C44C1 /* TabBarVC.swift */; };
 		0DC2F8F61C56985F00FDFDE0 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC2F8F51C56985F00FDFDE0 /* NetworkRequest.swift */; };
 		0DCD43881C553D0800E1FEB0 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCD43871C553D0800E1FEB0 /* LogInViewController.swift */; };
@@ -39,6 +40,7 @@
 		0D9A936A1C566FDB007B6100 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		0D9A936B1C566FDB007B6100 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = ../FBSDKShareKit.framework; sourceTree = "<group>"; };
 		0DACEF5C1C57F228001A8CC2 /* PersistParseData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistParseData.swift; sourceTree = "<group>"; };
+		0DB0DD4A1C6111A2004357F6 /* GetUserCredentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetUserCredentials.swift; sourceTree = "<group>"; };
 		0DC02A721C5B00FC007C44C1 /* TabBarVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
 		0DC2F8F51C56985F00FDFDE0 /* NetworkRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
 		0DCD43871C553D0800E1FEB0 /* LogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				0D2287D01C553155006C620C /* Assets.xcassets */,
+				0DB0DD4A1C6111A2004357F6 /* GetUserCredentials.swift */,
 				0DC2F8F51C56985F00FDFDE0 /* NetworkRequest.swift */,
 				0D98BB0F1C56F7420071ABB8 /* ClientLocation.swift */,
 				0DACEF5C1C57F228001A8CC2 /* PersistParseData.swift */,
@@ -205,6 +208,7 @@
 				0D9A93641C558D25007B6100 /* ListVC.swift in Sources */,
 				0DACEF5D1C57F228001A8CC2 /* PersistParseData.swift in Sources */,
 				0D8500C71C5527A7007528FE /* AppDelegate.swift in Sources */,
+				0DB0DD4B1C6111A2004357F6 /* GetUserCredentials.swift in Sources */,
 				0D98BB101C56F7420071ABB8 /* ClientLocation.swift in Sources */,
 				0D8500C91C5527A7007528FE /* MapVC.swift in Sources */,
 				0DC02A731C5B00FC007C44C1 /* TabBarVC.swift in Sources */,

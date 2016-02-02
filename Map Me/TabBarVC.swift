@@ -137,7 +137,7 @@ class TabBarVC: UITabBarController {
                     self.activityIndicator.stopAnimating()
                     UIApplication.sharedApplication().endIgnoringInteractionEvents()
                 } else {
-                    print("No value for error key")
+                    print("Network Error: No value for key")
                     self.activityIndicator.stopAnimating()
                     UIApplication.sharedApplication().endIgnoringInteractionEvents()
                 }
