@@ -6,6 +6,21 @@
 //  Copyright © 2016 Scott Baumbich. All rights reserved.
 //
 
+/*
+TODO:
+
+- Get Facebook User Info
+- Get Udacity User Info
+-
+- Post Location info to server
+- Refresh Update Map Data & Pin Annotations
+- Keyboard shift
+*/
+
+
+
+
+
 import UIKit
 import FBSDKShareKit
 
