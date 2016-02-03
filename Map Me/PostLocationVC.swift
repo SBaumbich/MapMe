@@ -65,7 +65,7 @@ class PostLocationVC: UIViewController {
             if loginMethod == "Facebook" {
                 print("Facebook")
             } else if loginMethod == "Udacity" {
-                print("Udacity")
+                print("Udacity!!!")
             }
         }
     }
