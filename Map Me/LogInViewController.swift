@@ -10,7 +10,7 @@ import UIKit
 import FBSDKLoginKit
 import FBSDKCoreKit
 
-class LogInViewController: UIViewController {
+class LogInViewController: UIViewController, UITextFieldDelegate {
     
     let appDel = AppDelegate()
     let networkRequest = NetworkRequest()
@@ -28,13 +28,14 @@ class LogInViewController: UIViewController {
     
     
     
-    //***************************************************
-    // MARK: - App Life Cycle
-    //***************************************************
+//***************************************************
+// MARK: - App Life Cycle
+//***************************************************
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        userName.delegate = self
+        password.delegate = self
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -74,9 +75,9 @@ class LogInViewController: UIViewController {
     
     
     
-    //**************************************************
-    // MARK: - IBActions
-    //**************************************************
+//**************************************************
+// MARK: - IBActions
+//**************************************************
     
     @IBAction func logInButtonPressed(sender: AnyObject) {
         
@@ -149,9 +150,9 @@ class LogInViewController: UIViewController {
         }
     }
     
-    //***************************************************
-    // MARK: - Helper Functions
-    //***************************************************
+//***************************************************
+// MARK: - Helper Functions
+//***************************************************
     
     // Hides the status bar for logingVC
     override func prefersStatusBarHidden() -> Bool {
@@ -216,4 +217,18 @@ class LogInViewController: UIViewController {
         }
         return status
     }
+    
+//***************************************************
+// MARK: - Delegate Methods
+//***************************************************
+    
+    // Text Field Delegate
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+        return true
+    }
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true;
+    }
 }
+

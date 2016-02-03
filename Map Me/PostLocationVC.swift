@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class PostLocationVC: UIViewController {
+class PostLocationVC: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var button: UIButton!
     @IBOutlet var titleLabel: UILabel!
@@ -22,6 +22,16 @@ class PostLocationVC: UIViewController {
     var lat: Float = 0.0
     var long: Float = 0.0
     var mapString = ""
+    
+    
+
+//***************************************************
+// MARK: - App Life Cyce
+//***************************************************
+    
+    override func viewDidLoad() {
+        inputTextField.delegate = self
+    }
     
     
     
@@ -70,7 +80,7 @@ class PostLocationVC: UIViewController {
                     }
                 }
                 // If button type is Post & not empty
-            }}else if button.currentTitle == "Post" && self.inputTextField != "" {
+            }}else if button.currentTitle == "Post" && self.inputTextField.text != "" {
             let loginMethod = (defaults.objectForKey("login") as? String)!
             let userInfo = GetUserCredentials()
             let networkRQ = NetworkRequest()
@@ -158,7 +168,24 @@ class PostLocationVC: UIViewController {
                     } catch {}
                 })
             }
+        } else { activityIndicator.stopAnimating()
+            let alert = UIAlertController(title: "URL Empty", message:"Please enter a valid URL. \n e.g https://www.google.com", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "Retry ", style: .Default) { _ in })
+            self.presentViewController(alert, animated: true, completion: nil)
         }
+    }
+    
+//***************************************************
+// MARK: - Delegate Methods
+//***************************************************
+    
+    // Text Field Delegate
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+        return true
+    }
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true;
     }
 }
 
