@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 
 class MapVC: UIViewController {
-
+    
     let defaults = NSUserDefaults.standardUserDefaults()
     var parseTest = PersistParseData()
     var annotations = [MKPointAnnotation]()
@@ -18,9 +18,9 @@ class MapVC: UIViewController {
     
     
     
-//***************************************************
-// MARK: - App Life Cycle
-//***************************************************
+    //***************************************************
+    // MARK: - App Life Cycle
+    //***************************************************
     
     override func viewWillAppear(animated: Bool) {
         self.view.alpha = 0
@@ -29,6 +29,7 @@ class MapVC: UIViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
+        updateMapData()
         UIView.animateWithDuration(0.4) {
             self.view.alpha = 1
         }
@@ -44,9 +45,9 @@ class MapVC: UIViewController {
     }
     
     
-//***************************************************
-// MARK: - Helper Functions
-//***************************************************
+    //***************************************************
+    // MARK: - Helper Functions
+    //***************************************************
     
     // Update Map Data & Pin Annotations
     func updateMapData() {

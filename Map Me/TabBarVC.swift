@@ -11,16 +11,16 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 
 class TabBarVC: UITabBarController {
-
+    
     let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
     let defaults = NSUserDefaults.standardUserDefaults()
     let appDel = AppDelegate()
-
     
-
-//**************************************************
-// MARK: - IBActions
-//**************************************************
+    
+    
+    //**************************************************
+    // MARK: - IBActions
+    //**************************************************
     
     @IBAction func logOutButton(sender: AnyObject) {
         
@@ -30,66 +30,66 @@ class TabBarVC: UITabBarController {
         if defaults.objectForKey("login") as? String  == "Facebook" {
             facebookLogout()
         } else {
-        
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
-        request.HTTPMethod = "DELETE"
-        var xsrfCookie: NSHTTPCookie? = nil
-        let sharedCookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
-        
-        for cookie in sharedCookieStorage.cookies! {
-            if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
-        }
-        
-        if let xsrfCookie = xsrfCookie {
-            request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
-        }
-        
-        let session = NSURLSession.sharedSession()
-        let task = session.dataTaskWithRequest(request) { data, response, error in
             
-            guard (error == nil) else {
-                self.activityIndicator.stopAnimating()
-                UIApplication.sharedApplication().endIgnoringInteractionEvents()
-                let alert = UIAlertController(title: "Logout Faild", message:"Unable to connect to the network.", preferredStyle: .Alert)
-                alert.addAction(UIAlertAction(title: "Retry", style: .Default) { _ in })
-                self.presentViewController(alert, animated: true, completion: nil)
-                print("Network Error")
-                return
+            let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
+            request.HTTPMethod = "DELETE"
+            var xsrfCookie: NSHTTPCookie? = nil
+            let sharedCookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
+            
+            for cookie in sharedCookieStorage.cookies! {
+                if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
             }
             
-            // GUARD: Did we get a successful 2XX response?
-            guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
-                
-                if let response = response as? NSHTTPURLResponse {
-                    print("Login Failed: \(response.statusCode)")
-                } else if let response = response {
-                    print("Your request returned an invalid response! Response: \(response)!")
-                } else {
-                    print("Your request returned an invalid response!")
-                }
-                UIApplication.sharedApplication().endIgnoringInteractionEvents()
-                return
+            if let xsrfCookie = xsrfCookie {
+                request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
             }
             
-            do {
-                /* subset response data! */
-                let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
+            let session = NSURLSession.sharedSession()
+            let task = session.dataTaskWithRequest(request) { data, response, error in
                 
-                if let _ = try NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments) as? NSDictionary{
-
-                    print("logged Out Udacity")
+                guard (error == nil) else {
+                    self.activityIndicator.stopAnimating()
                     UIApplication.sharedApplication().endIgnoringInteractionEvents()
-                    
-                    dispatch_async(dispatch_get_main_queue()){
-                        self.dismissViewControllerAnimated(true, completion: nil)
-                    }
+                    let alert = UIAlertController(title: "Logout Faild", message:"Unable to connect to the network.", preferredStyle: .Alert)
+                    alert.addAction(UIAlertAction(title: "Retry", style: .Default) { _ in })
+                    self.presentViewController(alert, animated: true, completion: nil)
+                    print("Network Error")
+                    return
                 }
-            } catch {
-                print("Problem Logging Out")
-                UIApplication.sharedApplication().endIgnoringInteractionEvents()
+                
+                // GUARD: Did we get a successful 2XX response?
+                guard let statusCode = (response as? NSHTTPURLResponse)?.statusCode where statusCode >= 200 && statusCode <= 299 else {
+                    
+                    if let response = response as? NSHTTPURLResponse {
+                        print("Login Failed: \(response.statusCode)")
+                    } else if let response = response {
+                        print("Your request returned an invalid response! Response: \(response)!")
+                    } else {
+                        print("Your request returned an invalid response!")
+                    }
+                    UIApplication.sharedApplication().endIgnoringInteractionEvents()
+                    return
+                }
+                
+                do {
+                    /* subset response data! */
+                    let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
+                    
+                    if let _ = try NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments) as? NSDictionary{
+                        
+                        print("logged Out Udacity")
+                        UIApplication.sharedApplication().endIgnoringInteractionEvents()
+                        
+                        dispatch_async(dispatch_get_main_queue()){
+                            self.dismissViewControllerAnimated(true, completion: nil)
+                        }
+                    }
+                } catch {
+                    print("Problem Logging Out")
+                    UIApplication.sharedApplication().endIgnoringInteractionEvents()
+                }
             }
-        }
-        task.resume()
+            task.resume()
         }
     }
     
@@ -101,9 +101,9 @@ class TabBarVC: UITabBarController {
     
     
     
-//**************************************************
-// MARK: - Helper Functions
-//**************************************************
+    //**************************************************
+    // MARK: - Helper Functions
+    //**************************************************
     
     func setActivityIndicator () {
         let topVC = UIApplication.topViewController()

@@ -28,13 +28,13 @@ class LogInViewController: UIViewController {
     
     
     
-//***************************************************
-// MARK: - App Life Cycle
-//***************************************************
+    //***************************************************
+    // MARK: - App Life Cycle
+    //***************************************************
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -72,71 +72,71 @@ class LogInViewController: UIViewController {
         }
     }
     
-
     
-//**************************************************
-// MARK: - IBActions
-//**************************************************
+    
+    //**************************************************
+    // MARK: - IBActions
+    //**************************************************
     
     @IBAction func logInButtonPressed(sender: AnyObject) {
-
+        
         if textfieldsNotEmpty(userName.text!, password: password.text!) {
             
-        let url = NSURL(string: "https://www.udacity.com/api/session")!
-        let header = ["Accept": "application/json", "Content-Type": "application/json"]
-        var body = [String:AnyObject]()
-        body["udacity"] = ["username": userName.text!, "password": password.text!]
-
-        networkRequest.downloadJSON(url, method: "POST", headers: header, body: body) { (data, error) -> Void in
+            let url = NSURL(string: "https://www.udacity.com/api/session")!
+            let header = ["Accept": "application/json", "Content-Type": "application/json"]
+            var body = [String:AnyObject]()
+            body["udacity"] = ["username": userName.text!, "password": password.text!]
             
-            guard (error == nil) else {
-                self.errorLabel.text = "Network Request \(error)"
-                UIView.animateWithDuration(0.5) {
-                    self.errorLabel.alpha = 0.85
-                    self.activityIndicator.stopAnimating()
+            networkRequest.downloadJSON(url, method: "POST", headers: header, body: body) { (data, error) -> Void in
+                
+                guard (error == nil) else {
+                    self.errorLabel.text = "Network Request \(error)"
+                    UIView.animateWithDuration(0.5) {
+                        self.errorLabel.alpha = 0.85
+                        self.activityIndicator.stopAnimating()
+                    }
+                    return
                 }
-                return
-            }
-            
-            let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
-            
-            do {
-                if let udacityDict = try NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments) as? NSDictionary {
-
-                    if let loginStatus = udacityDict["status"] as? Int {
-                        dispatch_async(dispatch_get_main_queue()){
-                            self.errorLabel.text = udacityDict["error"]! as? String
-                            self.activityIndicator.stopAnimating()
-                            UIView.animateWithDuration(0.5) {
-                                self.errorLabel.alpha = 0.85
+                
+                let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
+                
+                do {
+                    if let udacityDict = try NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments) as? NSDictionary {
+                        
+                        if let loginStatus = udacityDict["status"] as? Int {
+                            dispatch_async(dispatch_get_main_queue()){
+                                self.errorLabel.text = udacityDict["error"]! as? String
+                                self.activityIndicator.stopAnimating()
+                                UIView.animateWithDuration(0.5) {
+                                    self.errorLabel.alpha = 0.85
+                                }
+                                print("loginStatus: \(loginStatus)")
+                                return
                             }
-                            print("loginStatus: \(loginStatus)")
-                            return
-                        }
-                    } else {
-                        guard let userID = (udacityDict["account"]!["key"]) as? String else {
-                            print("Udacity User Key Not Found...")
-                            return
-                        }
-                        
-                        print("Udacity ID: \(userID)")
-                        UIView.animateWithDuration(0.5) {
-                            self.activityIndicator.alpha = 0
-                        }
-                        
-                        dispatch_async(dispatch_get_main_queue()) {
-                            self.defaults.setObject(userID, forKey: "udacityUserID")
-                            self.defaults.setObject("Udacity", forKey: "login")
-                            self.login()
+                        } else {
+                            guard let userID = (udacityDict["account"]!["key"]) as? String else {
+                                print("Udacity User Key Not Found...")
+                                return
+                            }
+                            
+                            print("Udacity ID: \(userID)")
+                            UIView.animateWithDuration(0.5) {
+                                self.activityIndicator.alpha = 0
+                            }
+                            
+                            dispatch_async(dispatch_get_main_queue()) {
+                                self.defaults.setObject(userID, forKey: "udacityUserID")
+                                self.defaults.setObject("Udacity", forKey: "login")
+                                self.login()
+                            }
                         }
                     }
+                } catch {
+                    print("Cound not parse data.")
                 }
-            } catch {
-                print("Cound not parse data.")
-            }
-        }}// If Check
+            }}// If Check
     }
-
+    
     @IBAction func Register(sender: AnyObject) {
         if let url = NSURL(string: "https://www.udacity.com/account/auth#!/signup"){
             UIApplication.sharedApplication().openURL(url)
@@ -149,9 +149,9 @@ class LogInViewController: UIViewController {
         }
     }
     
-//***************************************************
-// MARK: - Helper Functions
-//***************************************************
+    //***************************************************
+    // MARK: - Helper Functions
+    //***************************************************
     
     // Hides the status bar for logingVC
     override func prefersStatusBarHidden() -> Bool {
@@ -186,7 +186,7 @@ class LogInViewController: UIViewController {
     
     // Check that User & Password textfields != ""
     func textfieldsNotEmpty (username: String, password: String) -> Bool {
-    
+        
         var status: Bool = false
         
         if username == "" {

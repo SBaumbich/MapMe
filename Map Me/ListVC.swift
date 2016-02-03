@@ -9,22 +9,23 @@
 import UIKit
 
 class ListVC: UITableViewController {
-
+    
     let appDel = AppDelegate()
     let defaults = NSUserDefaults.standardUserDefaults()
     var parseTest = PersistParseData()
     var data: [[String:AnyObject]] = []
     
-   
     
-//***************************************************
-// MARK: - App Life Cycle
-//***************************************************
-
+    
+    //***************************************************
+    // MARK: - App Life Cycle
+    //***************************************************
+    
     override func viewWillAppear(animated: Bool) {
         self.view.alpha = 0
         if let storedData = (self.defaults.objectForKey("parseData")) as? [[String:AnyObject]] {
             data = storedData
+            self.tableView.reloadData()
         }
     }
     
@@ -35,22 +36,22 @@ class ListVC: UITableViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
     }
-
-
-//***************************************************
-// // MARK: - Table view data source
-//***************************************************
+    
+    
+    //***************************************************
+    // // MARK: - Table view data source
+    //***************************************************
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
-
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
     }
-
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
@@ -75,10 +76,10 @@ class ListVC: UITableViewController {
     }
     
     
-
-//***************************************************
-// // MARK: - Table view Delegate Methods
-//***************************************************
+    
+    //***************************************************
+    // // MARK: - Table view Delegate Methods
+    //***************************************************
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
@@ -110,5 +111,5 @@ class ListVC: UITableViewController {
         highlightView.backgroundColor = appDel.grayColor
         cell?.selectedBackgroundView = highlightView
     }
-
+    
 }

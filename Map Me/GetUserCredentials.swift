@@ -15,24 +15,17 @@ class GetUserCredentials {
     let defaults = NSUserDefaults.standardUserDefaults()
     
     
-    // make a compleation handeler with fist and last name???????????
-    func getFBUserInfo() {
+    func getFBUserInfo(compleation: (firstName: String?, lastName: String?, id: String?, error: Bool?) -> Void) {
         if((FBSDKAccessToken.currentAccessToken()) != nil){
             FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, first_name, last_name, email"]).startWithCompletionHandler({ (connection, result, error) -> Void in
                 if (error == nil){
                     if let dictInfo = result as? NSDictionary{
-                        print(dictInfo)
-                        if let firstName = dictInfo["first_name"] as? String, let lastName = dictInfo["last_name"] as? String {
-                            print(firstName)
-                            print(lastName)
-                            self.defaults.setObject(firstName, forKey: "firstName")
-                            self.defaults.setObject(lastName, forKey: "lastName")
+                        if let firstName = dictInfo["first_name"] as? String, let lastName = dictInfo["last_name"] as? String, let id = dictInfo["id"] as? String {
+                            compleation(firstName: firstName, lastName: lastName, id: id, error: false)
                         }
                     }
                 }
             })
         }
     }
-    
-    
 }
