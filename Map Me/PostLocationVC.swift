@@ -25,9 +25,9 @@ class PostLocationVC: UIViewController {
     
     
     
-    //***************************************************
-    // MARK: - IBActions
-    //***************************************************
+//***************************************************
+// MARK: - IBActions
+//***************************************************
     
     @IBAction func cancelButton(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)

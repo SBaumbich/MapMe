@@ -18,14 +18,12 @@ class MapVC: UIViewController {
     
     
     
-    //***************************************************
-    // MARK: - App Life Cycle
-    //***************************************************
+//***************************************************
+// MARK: - App Life Cycle
+//***************************************************
     
     override func viewWillAppear(animated: Bool) {
         self.view.alpha = 0
-        
-        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -45,9 +43,9 @@ class MapVC: UIViewController {
     }
     
     
-    //***************************************************
-    // MARK: - Helper Functions
-    //***************************************************
+//***************************************************
+// MARK: - Helper Functions
+//***************************************************
     
     // Update Map Data & Pin Annotations
     func updateMapData() {

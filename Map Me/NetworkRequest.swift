@@ -14,26 +14,26 @@ class NetworkRequest {
     lazy var session: NSURLSession = NSURLSession(configuration: self.config)
     
     
+    
     func downloadJSON (url: NSURL, method: String, headers: [String:String]? = nil, body: [String:AnyObject]? = nil, responseHandler: (NSData?, NSError?) -> Void) {
- 
         
-        // create request and set HTTP method
+        // Create request and set HTTP method
         let request = NSMutableURLRequest(URL: url)
         request.HTTPMethod = method
         
-        // add headers
+        // Add headers
         if let headers = headers {
             for (key, value) in headers {
                 request.addValue(value, forHTTPHeaderField: key)
             }
         }
         
-        // add body
+        // Add body
         if let body = body {
             request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(body, options: NSJSONWritingOptions())
         }
         
-        // create/return task
+        // Create/return task
         let task = session.dataTaskWithRequest(request) { (data, response, error) in
             
             // was there an error?

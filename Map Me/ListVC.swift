@@ -17,9 +17,9 @@ class ListVC: UITableViewController {
     
     
     
-    //***************************************************
-    // MARK: - App Life Cycle
-    //***************************************************
+//***************************************************
+// MARK: - App Life Cycle
+//***************************************************
     
     override func viewWillAppear(animated: Bool) {
         self.view.alpha = 0
@@ -40,9 +40,9 @@ class ListVC: UITableViewController {
     }
     
     
-    //***************************************************
-    // // MARK: - Table view data source
-    //***************************************************
+//***************************************************
+// MARK: - Table view data source
+//***************************************************
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -77,9 +77,9 @@ class ListVC: UITableViewController {
     
     
     
-    //***************************************************
-    // // MARK: - Table view Delegate Methods
-    //***************************************************
+//***************************************************
+// MARK: - Table view Delegate Methods
+//***************************************************
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
